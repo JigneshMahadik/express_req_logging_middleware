@@ -22,9 +22,27 @@ app.use(requestLogger);
 //     console.log("Sorry !");
 // }
 
-app.get("/api/v1/product" ,(req,res)=>{
+app.get("/api/v1/products" ,(req,res)=>{
+    const products = [
+        {
+            id:1,
+            name: "Samsung"
+        },
+        {
+            id:2,
+            name: "Apple"
+        },
+        {
+            id:3,
+            name: "Redme"
+        }
+    ]
     try {
-        console.log(`Request is being processed at URL "${req.url}"`);
+        console.log(`Request is being processed at URL "${req.url}"\n`);
+        fs.appendFileSync("access.log","Request is being processed at URL"+`"${req.url}"\n`);
+        res.json(products);
+        console.log("Response has sent to client");
+        fs.appendFileSync("access.log","Response has sent to client : Timestamp : "+`${new Date()}\n\n`);
     } 
     catch(error){
         console.log("Error occured while API call !");
